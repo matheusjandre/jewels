@@ -13,11 +13,16 @@ $ make
 
 ```bash
 # To erase objects: 
-$ make clean
+$ make clean-obj
 ```
 
 ```bash
-# To erase executable: 
-$ make purge
+# To erase temporary files: 
+$ make clean-tmp
+```
+
+```bash
+# To erase all products of make:
+$ make clean
 ```
 
