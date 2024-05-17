@@ -9,12 +9,15 @@ DEP = gameStructure.o gameLogic.o gameState.o
 TMP = ./tmp
 OBJ = ./obj
 
-all: $(DEP)
+all: directories $(DEP)
 	@$(COMP) $(CFLAGS) $(OBJ)/* main.c -o $(PROGRAM_NAME) $(LDFLAGS)
 	@echo "O executável foi gerado."
 	@echo "Para executar, digite: ./$(PROGRAM_NAME)"
 
 # OBJETOS -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+directories:
+	@mkdir -p $(OBJ) $(TMP)
 
 gameStructure.o: include/gameStructure/gameStructure.h
 	@$(COMP) $(CFLAGS) -c include/gameStructure/gameStructure.c -o $(OBJ)/gameStructure.o
@@ -29,10 +32,14 @@ gameLogic.o: include/gameLogic/gameLogic.h
 
 # COMANDOS PARA LIMPEZA -=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-clean:
-	@rm -f $(OBJ)/*
-	@echo "O objetos do programa foram removidos."
+clean-obj:
+	@rm -rf $(OBJ)
+	@echo "Os objetos do programa foram removidos."
 
-purge:
+clean-tmp:
+	@rm -rf $(TMP)
+	@echo "Os arquivos temporários foram removidos."
+
+clean: clean-obj clean-tmp
 	@rm -f $(PROGRAM_NAME)
 	@echo "O executável do programa foi removido."
